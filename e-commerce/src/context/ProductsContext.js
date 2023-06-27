@@ -5,18 +5,22 @@ import axios from 'axios'
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
-  // GET_PRODUCTS_BEGIN,
-  // GET_PRODUCTS_SUCCESS,
-  // GET_PRODUCTS_ERROR,
-  // GET_SINGLE_PRODUCT_BEGIN,
-  // GET_SINGLE_PRODUCT_SUCCESS,
-  // GET_SINGLE_PRODUCT_ERROR,
+  GET_PRODUCTS_BEGIN,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_ERROR,
+  GET_SINGLE_PRODUCT_BEGIN,
+  GET_SINGLE_PRODUCT_SUCCESS,
+  GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
 import {products_url as url} from '../utils/constants'
 const ProductContext = createContext();
 
 const initialState = {
   isSideBarOpen: false,
+  product_loading:false,
+  product_error:false,
+  products:[],
+  featured_products:[],
 };
 
 export const ProductsProvider = ({ children }) => {
@@ -30,8 +34,9 @@ export const ProductsProvider = ({ children }) => {
   };
 
   const fetchproduct = async(url)=>{
+    dispatch({type:GET_PRODUCTS_BEGIN})
     const response =await axios.get(url)
-    
+    console.log(response)
 
 
 
@@ -40,7 +45,7 @@ export const ProductsProvider = ({ children }) => {
     fetchproduct(url)
   },[])
   return (
-    <ProductContext.Provider value={{ ...state, openSidebar, closeSidebar }}>
+    <ProductContext.Provider value={{ ...state, openSidebar, closeSidebar,fetchproduct }}>
       {children}
     </ProductContext.Provider>
   );
