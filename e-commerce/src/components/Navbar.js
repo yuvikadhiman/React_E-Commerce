@@ -6,7 +6,6 @@ import { FaBars } from "react-icons/fa";
 import { links } from "../constants";
 import CartButton from "./CartButton";
 
-console.log(links);
 const Navbar = () => {
   return (
     <NavContainer>
@@ -20,16 +19,18 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="nav-links">
-        {links.map((link)=>{
-          const {id,text,url}=link;
-          return(
-            <li>
-              <NavLink  key={id} to={url}>{text}</NavLink>
-            </li>
-          )
-        })}
+          {links.map((link) => {
+            const { id, text, url } = link;
+            return (
+              <li>
+                <NavLink key={id} to={url}>
+                  {text}
+                </NavLink>
+              </li>
+            );
+          })}
         </ul>
-        <CartButton/>
+        <CartButton />
       </div>
     </NavContainer>
   );

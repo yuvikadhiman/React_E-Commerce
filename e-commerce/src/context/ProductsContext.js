@@ -1,13 +1,38 @@
-import React from 'react'
-import { useContext, useEffect, useReducer,createContext } from 'react'
-const ProductsContextProvider = () => {
+import React from "react";
+import { useContext, useEffect, useReducer, createContext } from "react";
+import reducer from "../reducers/products_reducers";
+import {
+  SIDEBAR_OPEN,
+  SIDEBAR_CLOSE,
+  // GET_PRODUCTS_BEGIN,
+  // GET_PRODUCTS_SUCCESS,
+  // GET_PRODUCTS_ERROR,
+  // GET_SINGLE_PRODUCT_BEGIN,
+  // GET_SINGLE_PRODUCT_SUCCESS,
+  // GET_SINGLE_PRODUCT_ERROR,
+} from "../actions";
+const ProductContext = createContext();
+const initialState = {
+  isSideBarOpen: false,
+};
 
-  const ProductContext=createContext();
+export const ProductsProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const openSidebar = () => {
+    dispatch({ type: SIDEBAR_OPEN });
+  };
+  const closeSidebar = () => {
+    dispatch({ type: SIDEBAR_CLOSE });
+  };
+
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <ProductContext.Provider value={{ ...state, openSidebar, closeSidebar }}>
+      {children}
+    </ProductContext.Provider>
+  );
+};
 
-export default ProductsContextProvider
+export const useProductContext = () => {
+  return useContext(ProductContext);
+};
