@@ -1,9 +1,11 @@
 import React from 'react'
-
+import PageHero from '../components/PageHero'
 const Cart = () => {
   return (
+
     <div>
-      cart page
+      <PageHero title='my cart' />
+      <h1>cart page</h1>
     </div>
   )
 }

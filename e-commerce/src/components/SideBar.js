@@ -6,35 +6,44 @@ import { FaTimes } from "react-icons/fa";
 import CartButtons from './CartButton'
 import styled from "styled-components";
 import { useProductContext } from "../context/ProductsContext";
+
+
 const SideBar = () => {
-  const data=useProductContext()
-  console.log(data)
-  const IsOpen = false;
+  const {isSidebarOpen,closeSidebar}=useProductContext()
   return (
     <SidebarContainer>
       <aside
-        className={`${IsOpen ?'sidebar show-sidebar':'sidebar'}`}>
-      <div className="sidebar-header">
-        <img src={logo} className="logo" alt="coding addict" />
-        <button className="close-btn">
-          <FaTimes />
-        </button>
-      </div>
-      <ul className="links">
-        {links.map((item) => {
-          const { id, url, text } = item;
-          return (
-            <li key={id}>
-              <Link to={url}>{text}</Link>
-            </li>
-          );
-        })}
-      </ul>
-        <CartButtons/>
-        </aside>
+        className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
+      >
+        <div className='sidebar-header'>
+          <img src={logo} className='logo' alt='coding addict' />
+          <button className='close-btn' onClick={closeSidebar}>
+            <FaTimes />
+          </button>
+        </div>
+        <ul className='links'>
+          {links.map(({ id, text, url }) => {
+            return (
+              <li key={id}>
+                <Link to={url} onClick={closeSidebar}>
+                  {text}
+                </Link>
+              </li>
+            )
+          })}
+          <li>
+            <Link to ='/checkout' onClick={closeSidebar}>
+              checkout
+            </Link>
+          </li>
+         
+        </ul>
+        <CartButtons />
+      </aside>
     </SidebarContainer>
   );
 };
+
 const SidebarContainer = styled.div`
   text-align: center;
   .sidebar-header {
