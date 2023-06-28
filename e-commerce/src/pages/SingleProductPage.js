@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useProductContext } from "../context/ProductsContext";
 import Loading from "../components/Loading";
+import ProductImages from "../components/ProductImages";
 import Error from "../components/Error";
 import PageHero from "../components/PageHero";
 import { formatPrice } from '../utils/helpers'
@@ -50,7 +51,7 @@ const SingleProduct = () => {
           back to products
         </Link>
         <div className='product-center'>
-          {/* <ProductImages images={images} /> */}
+          <ProductImages images={images} />
           <section className='content'>
             <h2>{name}</h2>
             {/* <Stars stars={stars} reviews={reviews} /> */}
@@ -69,7 +70,7 @@ const SingleProduct = () => {
               {company}
             </p>
             <hr />
-            {/* {stock > 0 && <AddToCart product={product} />} */}
+            {/* {stock > 0 && <AddToCart product={singleproduct} />} */}
           </section>
         </div>
       </div>
