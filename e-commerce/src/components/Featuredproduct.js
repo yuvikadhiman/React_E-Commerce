@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { useProductContext } from "../context/ProductsContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ const Featuredproduct = () => {
     product_error: error,
     featured_products: featured,
   } = useProductContext();
+
   if(loading){
     return <Loading/>
   }

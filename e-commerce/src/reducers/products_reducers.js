@@ -20,7 +20,7 @@ const products_reducers = (state, action) => {
     return { ...state, product_loading: true };
   }
   if (action.type === GET_PRODUCTS_ERROR) {
-    return { ...state, product_error: true,product_loading: false };
+    return { ...state, product_error: true, product_loading: false };
   }
   if (action.type === GET_PRODUCTS_SUCCESS) {
     const featured_products = action.payload.filter(
@@ -33,6 +33,25 @@ const products_reducers = (state, action) => {
       featured_products,
     };
   }
+  if (action.type === GET_SINGLE_PRODUCT_BEGIN) {
+    return { ...state, single_product_loading: true };
+  }
+  if (action.type === GET_SINGLE_PRODUCT_ERROR) {
+    return {
+      ...state,
+      single_product_error: true,
+      single_product_loading: false,
+    };
+  }
+  if (action.type ===GET_SINGLE_PRODUCT_SUCCESS) {
+    return {
+      ...state,
+      single_product_loading: false,
+      single_product: action.payload,
+  
+    };
+  }
+  
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 
