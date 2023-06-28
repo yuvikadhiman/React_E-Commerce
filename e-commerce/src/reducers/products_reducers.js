@@ -20,13 +20,18 @@ const products_reducers = (state, action) => {
     return { ...state, product_loading: true };
   }
   if (action.type === GET_PRODUCTS_ERROR) {
-    return { ...state, product_error: true };
+    return { ...state, product_error: true,product_loading: false };
   }
   if (action.type === GET_PRODUCTS_SUCCESS) {
     const featured_products = action.payload.filter(
       (product) => product.featured === true
     );
-    return { ...state, product_loading: false, products:action.payload, featured_products };
+    return {
+      ...state,
+      product_loading: false,
+      products: action.payload,
+      featured_products,
+    };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
