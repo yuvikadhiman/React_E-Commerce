@@ -10,7 +10,8 @@ import PageHero from "../components/PageHero";
 import { formatPrice } from '../utils/helpers'
 import { Link } from "react-router-dom";
 import { single_product_url as url } from '../utils/constants';
-
+import Stars from "../components/Stars";
+import AddToCart from "../components/AddToCart";
 const SingleProduct = () => {
   const { id } = useParams();
 
@@ -54,7 +55,7 @@ const SingleProduct = () => {
           <ProductImages images={images} />
           <section className='content'>
             <h2>{name}</h2>
-            {/* <Stars stars={stars} reviews={reviews} /> */}
+            <Stars stars={stars} reviews={reviews} />
             <h5 className='price'>{formatPrice(price)}</h5>
             <p className='desc'>{description}</p>
             <p className='info'>
@@ -70,7 +71,7 @@ const SingleProduct = () => {
               {company}
             </p>
             <hr />
-            {/* {stock > 0 && <AddToCart product={singleproduct} />} */}
+            {stock > 0 && <AddToCart singleproduct={singleproduct} />}
           </section>
         </div>
       </div>
