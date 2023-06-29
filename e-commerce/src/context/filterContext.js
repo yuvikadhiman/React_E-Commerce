@@ -10,17 +10,24 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from '../actions'
-import { useProductsContext } from './ProductsContext'
-
-const initialState = {
+import { useProductsContext } from './ProductsContext';
+const initialstate = {
+ filtered_product:[],
+ all_products:[],
 
 }
 
 const FilterContext = createContext()
 
+
 export const FilterProvider = ({ children }) => {
+  const{products}=useProductsContext()
+  console.log(products)
+  const[state,dispatch]=useReducer(reducer,initialstate)
   
-  
+  const ClearFilter=()=>{
+    dispatch({type:CLEAR_FILTERS})
+  }
   return (
     <FilterContext.Provider
       value={{}}
