@@ -1,5 +1,5 @@
-import React, { useEffect, useContext, useReducer,createContext } from 'react'
-import reducer from '../reducers/filter_reducer'
+import React, { useEffect, useContext, useReducer, createContext } from "react";
+import reducer from "../reducers/filter_reducer";
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -9,36 +9,39 @@ import {
   UPDATE_FILTERS,
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
-} from '../actions'
-import { useProductContext } from './ProductsContext';
+} from "../actions";
+import { useProductContext } from "./ProductsContext";
 const initialstate = {
- filtered_product:[],
- all_products:[],
+    filtered_products: [],
+    all_products: [],
+    grid_view: true,
+};
 
-}
-
-const FilterContext = createContext()
-
+const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-  const{products}=useProductContext()
-  const[state,dispatch]=useReducer(reducer,initialstate)
-  
-  useEffect(()=>{
-    dispatch({type:LOAD_PRODUCTS,payload:products})
-  },[products])
-//   const ClearFilter=()=>{
-//     dispatch({type:CLEAR_FILTERS})
-//   }
-  return (
-    <FilterContext.Provider
-      value={{}}
-    >
-      {children}
-    </FilterContext.Provider>
-  )
-}
+  const { products } = useProductContext();
+  const [state, dispatch] = useReducer(reducer, initialstate);
+
+  useEffect(() => {
+    dispatch({ type: LOAD_PRODUCTS, payload: products })
+  }, [products])
+
+  const setGridView = () => {
+    dispatch({ type: SET_GRIDVIEW })
+  }
+  const setListView = () => {
+    dispatch({ type: SET_LISTVIEW })
+  }
+  //   const ClearFilter=()=>{
+  //     dispatch({type:CLEAR_FILTERS})
+  //   }
+  return <FilterContext.Provider value={{
+    ...state, setGridView,
+    setListView
+  }}>{children}</FilterContext.Provider>;
+};
 // make sure use
 export const useFilterContext = () => {
-  return useContext(FilterContext)
-}
+  return useContext(FilterContext);
+};
