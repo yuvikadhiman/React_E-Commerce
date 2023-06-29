@@ -2,11 +2,40 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
+import AmountButton from "../components/AmountButton";
 
 const AddToCart = ({ singleproduct }) => {
   const { id, colors, stock } = singleproduct;
   console.log(colors);
   const [mainColor, setmainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+  const [Stock, setStock] = useState(stock-1);
+
+  console.log(Stock)
+  const increase = () => {
+    if (Stock) {
+      const newAmount = amount + 1;
+      const newStock = Stock - 1;
+      return (
+        setAmount(newAmount),
+        setStock(newStock)
+        )
+    }
+    // eslint-disable-next-line no-unreachable
+    return amount;
+  };
+  const decrease = () => {
+    if (amount > 1) {
+      const newAmount = amount - 1;
+      const newStock = Stock + 1;
+      return (
+        setAmount(newAmount), 
+        setStock(newStock)
+        )
+      }
+    return amount;
+  };
+
   return (
     <Wrapper>
       <div className="colors">
@@ -18,17 +47,22 @@ const AddToCart = ({ singleproduct }) => {
                 key={index}
                 style={{ background: color }}
                 className={`${
-                    mainColor === colors[index] ? 'color-btn active' : 'color-btn'
-                  }`}
+                  mainColor === colors[index] ? "color-btn active" : "color-btn"
+                }`}
                 onClick={() => setmainColor(colors[index])}
               >
-                {mainColor=== colors[index]? <FaCheck /> : null}
+                {mainColor === colors[index] ? <FaCheck /> : null}
               </button>
             );
           })}
         </div>
       </div>
-      <button>Add To Cart</button>
+      <div className="btn-container">
+        <AmountButton increase={increase} decrease={decrease} amount={amount} />
+        <Link to="/cart" className="btn">
+          Add to Cart
+        </Link>
+      </div>
     </Wrapper>
   );
 };
@@ -75,6 +109,8 @@ const Wrapper = styled.section`
   .btn {
     margin-top: 1rem;
     width: 140px;
+  }
+  alert {
   }
 `;
 export default AddToCart;
