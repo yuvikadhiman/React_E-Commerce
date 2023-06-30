@@ -2,40 +2,54 @@ import React from "react";
 import { useFilterContext } from "../context/filterContext";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import styled from "styled-components";
-import GridView from '../components/GridView'
-import ListView from '../components/ListView'
+
 const Sort = () => {
-  const { filtered_products: products, grid_view,setGridView,
-    setListView } = useFilterContext();
-    console.log(products)
+  const {
+    filtered_products: products,
+    grid_view,
+    setGridView,
+    setListView,
+    updatesort,
+    sort,
+  } = useFilterContext();
+
   return (
     <Wrapper>
       <div className="btn-container">
-        <button type="button" className={`${grid_view ? "active" : null}`}
-        onClick={setGridView}>
+        <button
+          type="button"
+          className={`${grid_view ? "active" : null}`}
+          onClick={setGridView}
+        >
           <BsFillGridFill />
         </button>
-        <button type="button" className={`${!grid_view ? "active" : null}`}
-        onClick={setListView}>
+        <button
+          type="button"
+          className={`${!grid_view ? "active" : null}`}
+          onClick={setListView}
+        >
           <BsList />
         </button>
       </div>
       <p>{products.length} products found</p>
       <hr />
       <form>
-        <label htmlFor='sort' style={{padding:'0.5rem'}}>sort by</label>
+        <label htmlFor="sort" style={{ padding: "0.5rem" }}>
+          sort by
+        </label>
         <select
-          name='sort'
-          id='sort'
-          className='sort-input'
+          name="sort"
+          id="sort"
+          className="sort-input"
+          value={sort}
+          onChange={updatesort}
         >
-          <option value='price-lowest'>price (lowest)</option>
-          <option value='price-highest'>price (highest)</option>
-          <option value='name-a'>name (a - z)</option>
-          <option value='name-z'>name (z - a)</option>
+          <option value="price-lowest">price (lowest)</option>
+          <option value="price-highest">price (highest)</option>
+          <option value="name-a">name (a - z)</option>
+          <option value="name-z">name (z - a)</option>
         </select>
       </form>
-
     </Wrapper>
   );
 };
