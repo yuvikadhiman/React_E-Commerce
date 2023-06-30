@@ -4,7 +4,7 @@ import { useFilterContext } from "../context/filterContext";
 import ListView from "./ListView";
 const ProductList = () => {
     const {filtered_products: products, grid_view } = useFilterContext()
-    console.log(products)
+
     if (grid_view === false) {
       return <ListView products={products} />
     }

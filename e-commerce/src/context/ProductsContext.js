@@ -40,7 +40,9 @@ export const ProductsProvider = ({ children }) => {
     dispatch({ type: GET_PRODUCTS_BEGIN });
     try {
       const response = await axios.get(url);
+      console.log(response)
       const products = response.data;
+      console.log(products)
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     
     } catch (err) {
@@ -58,7 +60,7 @@ export const ProductsProvider = ({ children }) => {
       dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
     }
   };
-
+ 
   useEffect(() => {
     fetchproduct(url);
   }, []);

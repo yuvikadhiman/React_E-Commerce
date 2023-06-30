@@ -10,7 +10,7 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from "../actions";
-import { useProductContext } from "./ProductsContext";
+import {useProductContext} from '../context/ProductsContext'
 const initialstate = {
     filtered_products: [],
     all_products: [],
@@ -20,7 +20,7 @@ const initialstate = {
 const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-  const { products } = useProductContext();
+  const {products}=useProductContext()
   const [state, dispatch] = useReducer(reducer, initialstate);
 
   useEffect(() => {
