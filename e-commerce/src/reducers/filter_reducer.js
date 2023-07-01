@@ -11,10 +11,13 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+    let maxPrice = action.payload.map((p) => p.price);
+    maxPrice = Math.max(...maxPrice);
     return {
       ...state,
       all_products: [...action.payload],
       filtered_products: [...action.payload],
+      filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
     };
   }
   if (action.type === SET_GRIDVIEW) {
@@ -23,6 +26,8 @@ const filter_reducer = (state, action) => {
   if (action.type === SET_LISTVIEW) {
     return { ...state, grid_view: false };
   }
+
+  // -------------SORT------------------------
   if (action.type === UPDATE_SORT) {
     return { ...state, sort: action.payload };
   }
@@ -47,6 +52,46 @@ const filter_reducer = (state, action) => {
     }
     return { ...state, filtered_products: tempProducts };
   }
+
+  // ----------------------FILTER-------------------------
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    return { ...state, filter: { ...state.filter, [name]: value } };
+  }
+  if (action.type === FILTER_PRODUCTS) {
+    const { all_products, filtered_products } = state;
+    const {
+      text,
+      category,
+      company,
+      color,
+      min_price,
+      price,
+      max_price,
+      shipping,
+    } = state.filter;
+
+    let tempProducts = [...all_products];
+    if (text) {
+      tempProducts = tempProducts.filter((product) =>
+        product.name.toLowerCase().startsWith(text)
+      );
+    }
+    if (category !== "all") {
+      tempProducts = tempProducts.filter((item) => item.category === category);
+    }
+    if (company !== "all") {
+      tempProducts = tempProducts.filter((item) => item.company === company);
+    }
+    if (color !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.find((c) => c === color);
+      });
+    }
+
+    return { ...state, filtered_products: tempProducts };
+  }
+
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

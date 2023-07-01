@@ -1,16 +1,136 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useFilterContext } from '../context/filterContext'
-import { getUniqueValues, formatPrice } from '../utils/helpers'
-import { FaCheck } from 'react-icons/fa'
+import React from "react";
+import styled from "styled-components";
+import { useFilterContext } from "../context/filterContext";
+import {getUniqueValues, formatPrice } from "../utils/helpers";
+import { FaCheck } from "react-icons/fa";
 
 const Filters = () => {
+  const {
+    filter: {
+      text,
+      category,
+      company,
+      color,
+      min_price,
+      price,
+      max_price,
+      shipping,
+    },
+    updateFilter,
+    all_products,
+    clearFilters,
+  } = useFilterContext();
+
+  console.log(all_products);
+  const categories = [
+    "all",
+    ...new Set(all_products.map((items) => items.category)),
+  ];
+  const companies = [
+    "all",
+    ...new Set(all_products.map((items) => items.company)),
+  ];
+  console.log(companies)
+
+  const colors = [
+    "all",
+    ...new Set(all_products.map((items) => items.colors
+    )),
+  ];
+  // const colors = getUniqueValues(all_products, 'colors')
+
+console.log(colors)
   return (
     <Wrapper>
-      filter
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <div className="form-control">
+          <input
+            type="text"
+            name="text"
+            value={text}
+            onChange={updateFilter}
+            className="search-input"
+            placeholder="Search"
+          />
+        </div>
+        <div className="form-control">
+          <h5>category</h5>
+          {categories.map((items, index) => {
+            return (
+              <button
+                key={index}
+                onClick={updateFilter}
+                type="button"
+                name="category"
+                className={`${
+                  category === items.toLowerCase() ? "active" : null
+                }`}
+              >
+                {items}
+              </button>
+            );
+          })}
+        </div>
+        <div className='form-control'>
+            <h5>company</h5>
+            <select
+              name='company'
+              value={company}
+              onChange={updateFilter}
+              className='company'
+            >
+              {companies.map((items,index)=>{
+                return (
+                  <option key={index} value={items}>{items}</option>
+                )
+              })}
+            </select>
+          </div>
+          <div className='form-control'>
+            <h5>colors</h5>
+            <div className='colors'>
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      key={index}
+                      name='color'
+                      onClick={updateFilter}
+                      data-color='all'
+                      className={`${
+                        color === 'all' ? 'all-btn active' : 'all-btn'
+                      }`}
+                    >
+                      all
+                    </button>
+                  )
+                }
+                return (
+                  <button
+                    key={index}
+                    name='color'
+                    style={{ background: c }}
+                    className={`${
+                      color === c ? 'color-btn active' : 'color-btn'
+                    }`}
+                    data-color={c}
+                    onClick={updateFilter}
+                  >
+                    {color === c ? <FaCheck /> : null}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+      </form>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.section`
   .form-control {
@@ -50,6 +170,9 @@ const Wrapper = styled.section`
     border-radius: var(--radius);
     border-color: transparent;
     padding: 0.25rem;
+    text-transform: capitalize;
+    color: var(--clr-grey-5);
+    font-weight:bold;
   }
   .colors {
     display: flex;
@@ -109,6 +232,6 @@ const Wrapper = styled.section`
       top: 1rem;
     }
   }
-`
+`;
 
-export default Filters
+export default Filters;
