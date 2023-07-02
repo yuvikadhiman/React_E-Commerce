@@ -6,21 +6,18 @@ import AmountButton from "../components/AmountButton";
 import { useCartContext } from "../context/cart_context";
 
 const AddToCart = ({ singleproduct }) => {
-  const {addtocart}=useCartContext()
+  const { addtocart } = useCartContext();
   const { id, colors, stock } = singleproduct;
   const [mainColor, setmainColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
-  const [Stock, setStock] = useState(stock-1);
+  const [Stock, setStock] = useState(stock - 1);
 
-  console.log(Stock)
+  console.log(Stock);
   const increase = () => {
     if (Stock) {
       const newAmount = amount + 1;
       const newStock = Stock - 1;
-      return (
-        setAmount(newAmount),
-        setStock(newStock)
-        )
+      return setAmount(newAmount), setStock(newStock);
     }
     // eslint-disable-next-line no-unreachable
     return amount;
@@ -29,11 +26,8 @@ const AddToCart = ({ singleproduct }) => {
     if (amount > 1) {
       const newAmount = amount - 1;
       const newStock = Stock + 1;
-      return (
-        setAmount(newAmount), 
-        setStock(newStock)
-        )
-      }
+      return setAmount(newAmount), setStock(newStock);
+    }
     return amount;
   };
 
@@ -60,9 +54,13 @@ const AddToCart = ({ singleproduct }) => {
       </div>
       <div className="btn-container">
         <AmountButton increase={increase} decrease={decrease} amount={amount} />
-        <Link to="/cart" className="btn" onClick={()=>{
-          addtocart(id,mainColor,amount,singleproduct)
-        }}>
+        <Link
+          to="/cart"
+          className="btn"
+          onClick={() => {
+            addtocart(id, mainColor, amount, singleproduct);
+          }}
+        >
           Add to Cart
         </Link>
       </div>
