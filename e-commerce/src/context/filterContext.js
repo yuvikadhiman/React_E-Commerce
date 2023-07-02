@@ -50,32 +50,36 @@ export const FilterProvider = ({ children }) => {
   const setListView = () => {
     dispatch({ type: SET_LISTVIEW });
   };
-    const ClearFilter=()=>{
-      dispatch({type:CLEAR_FILTERS})
-    }
   const updatesort = (e) => {
     const value = e.target.value;
     // console.log( value);
     dispatch({ type: UPDATE_SORT, payload: value });
   };
-
+  
   const updateFilter = (e) => {
     let value= e.target.value
     let name=e.target.name
-
+    
     if(name==='category'){
       value=e.target.textContent
     }
     if(name==='color'){
       value=e.target.dataset.color
     }
-    if(name==='price'){
-      value=Number(value)
+    if (name === 'price') {
+      value = Number(value)
+    }
+    if (name === 'shipping') {
+      value = e.target.checked
     }
     console.log(name,value)
     dispatch({type:UPDATE_FILTERS,payload:{name,value}})
   };
-
+  
+  const clearFilter=()=>{
+    console.log('cancel')
+    dispatch({type:CLEAR_FILTERS})
+  }
   return (
     <FilterContext.Provider
       value={{
@@ -83,7 +87,7 @@ export const FilterProvider = ({ children }) => {
         setGridView,
         setListView,
         updatesort,
-        updateFilter,ClearFilter
+        updateFilter,clearFilter
       }}
     >
       {children}

@@ -11,13 +11,15 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+
     let maxPrice = action.payload.map((p) => p.price);
     maxPrice = Math.max(...maxPrice);
+
     return {
       ...state,
       all_products: [...action.payload],
       filtered_products: [...action.payload],
-      filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
+      filter: { ...state.filter, max_price: maxPrice, price: maxPrice },
     };
   }
   if (action.type === SET_GRIDVIEW) {
@@ -59,15 +61,13 @@ const filter_reducer = (state, action) => {
     return { ...state, filter: { ...state.filter, [name]: value } };
   }
   if (action.type === FILTER_PRODUCTS) {
-    const { all_products, filtered_products } = state;
+    const { all_products} = state;
     const {
       text,
       category,
       company,
       color,
-      min_price,
       price,
-      max_price,
       shipping,
     } = state.filter;
 
@@ -88,8 +88,27 @@ const filter_reducer = (state, action) => {
         return product.colors.find((c) => c === color);
       });
     }
-
+    if(shipping){
+      tempProducts=tempProducts.filter((products)=>products.shipping===true)
+    }
+    if(price){
+      tempProducts = tempProducts.filter((product) => product.price <= price)
+    }
     return { ...state, filtered_products: tempProducts };
+  }
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      filter: {
+        ...state.filter,
+        text: '',
+        company: 'all',
+        category: 'all',
+        color: 'all',
+        price: state.filter.max_price,
+        shipping: false,
+      },
+    }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);

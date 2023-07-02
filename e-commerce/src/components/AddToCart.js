@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import AmountButton from "../components/AmountButton";
+import { useCartContext } from "../context/cart_context";
 
 const AddToCart = ({ singleproduct }) => {
+  const {addtocart}=useCartContext()
+
+
+
   const { id, colors, stock } = singleproduct;
-  console.log(colors);
   const [mainColor, setmainColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
   const [Stock, setStock] = useState(stock-1);
@@ -59,7 +63,9 @@ const AddToCart = ({ singleproduct }) => {
       </div>
       <div className="btn-container">
         <AmountButton increase={increase} decrease={decrease} amount={amount} />
-        <Link to="/cart" className="btn">
+        <Link to="/cart" className="btn" onClick={()=>{
+          addtocart(id,mainColor,amount,singleproduct)
+        }}>
           Add to Cart
         </Link>
       </div>

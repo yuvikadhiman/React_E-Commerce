@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/filterContext";
-import { getUniqueValues, formatPrice } from "../utils/helpers";
+import { formatPrice } from "../utils/helpers";
 import { FaCheck } from "react-icons/fa";
 
 const Filters = () => {
@@ -18,7 +18,7 @@ const Filters = () => {
     },
     updateFilter,
     all_products,
-    clearFilters,
+    clearFilter,
   } = useFilterContext();
 
   console.log(all_products);
@@ -127,18 +127,20 @@ const Filters = () => {
               })}
             </div>
           </div>
-          <div className="form-control">
+
+          <div className='form-control'>
             <h5>price</h5>
-            <p className="price">{formatPrice(price)}</p>
+            <p className='price'>{formatPrice(price)}</p>
             <input
-              type="range"
-              name="price"
+              type='range'
+              name='price'
               onChange={updateFilter}
               min={min_price}
               max={max_price}
               value={price}
             />
           </div>
+
           <div className="form-control shipping">
             <label htmlFor="shipping">free shipping</label>
             <input
@@ -149,10 +151,13 @@ const Filters = () => {
               onChange={updateFilter}
             />
           </div>
+
         </form>
-        <button type="button" className="clear-btn" onClick={clearFilters}>
+
+        <button type="button" className="clear-btn" onClick={clearFilter}>
           clear filters
         </button>
+        
       </div>
     </Wrapper>
   );
