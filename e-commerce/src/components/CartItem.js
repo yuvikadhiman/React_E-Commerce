@@ -4,6 +4,7 @@ import { formatPrice } from '../utils/helpers'
 import { FaTrash } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
 import AmountButtons from './AmountButton'
+import { Link } from 'react-router-dom'
 
 const CartItem = ({ id, image, name, color, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext()
@@ -15,8 +16,10 @@ const CartItem = ({ id, image, name, color, price, amount }) => {
   }
   return (
     <Wrapper>
-      <div className='title'>
-        <img src={image} alt={name} />
+      <div className='title' >
+        <Link to={`/products/${id}`}>
+        <img src={image} alt={name}  />
+        </Link>
         <div>
           <h5 className='name'>{name}</h5>
           <p className='color'>
@@ -56,7 +59,7 @@ const Wrapper = styled.article`
     grid-template-columns: 75px 125px;
     align-items: center;
     text-align: left;
-    gap: 1rem;
+    gap: 0.5rem;
   }
   img {
     width: 100%;
@@ -64,6 +67,7 @@ const Wrapper = styled.article`
     display: block;
     border-radius: var(--radius);
     object-fit: cover;
+    padding: 0.5rem ;
   }
   h5 {
     font-size: 0.75rem;
