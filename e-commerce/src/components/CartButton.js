@@ -1,27 +1,37 @@
-import React from 'react'
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useProductContext } from '../context/ProductsContext'
-import { useCartContext } from '../context/cart_context'
+import React from "react";
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useUserContext } from "../context/user_context";
+import { useProductContext } from "../context/ProductsContext";
+import { useCartContext } from "../context/cart_context";
 const CartButton = () => {
-  const {closeSidebar}=useProductContext()
-  const { total_items, clearcart } = useCartContext()
+  const { closeSidebar } = useProductContext();
+  const { total_items, clearcart } = useCartContext();
+  const { loginWithRedirect, myUser, logout } = useUserContext();
+
   return (
-    <Wrapper className='cart-btn-wrapper'>
-      <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
+    <Wrapper className="cart-btn-wrapper">
+      <Link to="/cart" className="cart-btn" onClick={closeSidebar}>
         Cart
-        <span className='cart-container'>
+        <span className="cart-container">
           <FaShoppingCart />
-          <span className='cart-value'>{total_items}</span>
+          <span className="cart-value">{total_items}</span>
         </span>
       </Link>
-      <button type='button' className='auth-btn' >
-          Login <FaUserPlus />
-        </button>
+      <button type="button" className="auth-btn" onClick={loginWithRedirect}>
+        Login <FaUserPlus />
+      </button>
+      <button
+        type="button"
+        className="auth-btn"
+        onClick={() => logout({ returnTo: window.location.origin })}
+      >
+        Login <FaUserMinus />
+      </button>
     </Wrapper>
-  )
-}
+  );
+};
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -74,5 +84,5 @@ const Wrapper = styled.div`
       margin-left: 5px;
     }
   }
-`
-export default CartButton
+`;
+export default CartButton;

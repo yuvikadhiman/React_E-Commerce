@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useCartContext } from '../context/cart_context'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+
 const CartTotals = () => {
   const { total_amount, shipping_fee } = useCartContext()
   return (
@@ -31,8 +32,7 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   article {
-    border: 1px solid var(--clr-grey-8);
-    border-radius: var(--radius);
+
     padding: 3rem;
   }
   h4,
