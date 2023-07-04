@@ -6,8 +6,7 @@ import Cart from './CartPage'
 import Error from './ErrorPage'
 import AuthWrapper from './AuthWrapper'
 import SharedLayout from './SharedLayout'
-import Checkout from './CheckoutPage'
-import PrivateRoute from './PrivateRoute'
+
 export {
   Home,
   SingleProduct,
@@ -17,6 +16,5 @@ export {
   Products,
   AuthWrapper,
   SharedLayout,
-  Checkout,
-  PrivateRoute
+
 }
