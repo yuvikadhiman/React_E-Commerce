@@ -6,6 +6,7 @@ import PageHero from '../components/PageHero'
 
 import { useCartContext } from '../context/cart_context'
 import { Link } from 'react-router-dom'
+import StripeCheckout from '../components/StripeCheckout'
 
 const CheckoutPage = () => {
   const { cart } = useCartContext()
@@ -22,7 +23,7 @@ const CheckoutPage = () => {
             </Link>
           </div>
         ) : (
-          ''
+          <StripeCheckout/>
         )}
       </Wrapper>
     </main>
