@@ -13,8 +13,8 @@ import { UserProvider } from "./context/user_context";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
-    domain="{dev-rhmnev2xxsx7hhxh.us.auth0.com}"
-    clientId="{rwevH9edJvp6lsblNVseKwYoICakxPNA }"
+    domain="dev-rhmnev2xxsx7hhxh.us.auth0.com"
+    clientId="rwevH9edJvp6lsblNVseKwYoICakxPNA"
     authorizationParams={{
       redirect_uri: window.location.origin,
     }}
